@@ -7,20 +7,21 @@ app.controller('FreeLancer.MainController', ['$scope', '$http', function ($scope
     // create a blank object to handle form data.
 
     // calling our submit function.
-    $scope.submitForm = function ($scope, name, address, email, message) {
+    $scope.submitForm = function (name, address, email, subject, message) {
         var user = {};
         // Build user element
-        user.name = name
-        user.address = address
-        user.email = email
-        user.message = message
-        console.log(user)
+        user.name = name;
+        user.address = address;
+        user.email = email;
+        user.subject = subject;
+        user.message = message;
+        console.log(user);
         // Posting data to python file
         $http({
             method: 'POST',
-            url: '/data',
+            url: 'http://vsh3ma.pythonanywhere.com/data',
             data: user, //forms user object
-            // headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            headers: {'Content-Type': 'application/json'}
         })
             .success(function (data) {
                 $scope.message = data.message;
